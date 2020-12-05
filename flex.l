@@ -13,9 +13,10 @@
  
 letras       [a-zA-Z]
 digito       [0-9]
+ID           [a-z][a-zA-Z0-9]+
 
  
-ID          "L"{letras}*{digito}+
+NOMAR          "L"{letras}*{digito}+
 ENTERO      {digito}+
 
 %%
@@ -23,18 +24,20 @@ ENTERO      {digito}+
        
 <ML_COMMENT>"\n"        { lineno += 1; }
  
-"PARTIR" |
-"INICIAR" |
-"METER" |
-"SACAR" |
-"DATO"  | 
-"FINALIZAR" {ret_print("RESERVADO");}
+"PARTIR" {ret_print("PARTE");}
+"INICIAR" {ret_print("INICIA");}
+"METER" {ret_print("METE");}
+"SACAR" {ret_print("SACA");}
+"DATO"  {ret_print("DAT");}
+"FINALIZAR" {ret_print("FINALIZA");}
 
 {ENTERO} {ret_print("ENTERO");}
 {ID} {ret_print("ID");}
-"(" |
-")" |
-"," {ret_print("SIMBOLO");}
+{NOMAR} {ret_print("NOMARR");}
+"(" {ret_print("PARA");}
+")" {ret_print("PARC");}
+"," {ret_print("COMA");}
+"=" {ret_print("IGUAL");}
 [ \t] ; /* ignora espacios */
 "\n"            { lineno += 1; }
 [ \t\r\f]+          /*Borra espacio en blanco */
