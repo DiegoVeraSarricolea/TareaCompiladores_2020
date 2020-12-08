@@ -810,7 +810,7 @@ YY_RULE_SETUP
 case 8:
 YY_RULE_SETUP
 #line 37 "flex.l"
-{yylval.numero=atof(yytext); return(ENTERO);}
+{return(ENTERO);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP

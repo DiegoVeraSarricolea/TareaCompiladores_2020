@@ -34,7 +34,7 @@ ENTERO      {digito}+
 "DATO"  {return DAT;}
 "FINALIZAR" {return FINALIZA;}
 
-{ENTERO} {yylval.numero=atof(yytext); return(ENTERO);}
+{ENTERO} {return(ENTERO);}
 {ID} {return ID;}
 {NOMAR} {return NOMARR;}
 

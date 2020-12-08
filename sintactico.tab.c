@@ -115,10 +115,10 @@
  //Declaracion de metodos 
   void yyerror(char *s);
   void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8);
-  //void meterEnArreglo(char id[30],int x,int y);
-  //void sacarDeArreglo(char id[30],int y);
-  //arreglo mirarArreglo(char id[30]);
-  //int datoDeArreglo(char id[30],int x);
+  void meterEnArreglo(char id[30],int x,int y);
+  void sacarDeArreglo(char id[30],int y);
+  void mirarArreglo(char id[30]);
+  int datoDeArreglo(char id[30],int x);
 
 
 //Declaracion del nodo del buffer de identificadores
@@ -1680,7 +1680,7 @@ void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,in
 	printf("Arreglo creado");
 }
 
-/*
+
 void meterEnArreglo(char id[30],int x,int y)
 {
 
@@ -1691,7 +1691,7 @@ void sacarDeArreglo(char id[30],int y)
 
 }
 
-arreglo mirarArreglo(char id[30])
+void mirarArreglo(char id[30])
 {
 
 }
@@ -1701,7 +1701,7 @@ int datoDeArreglo(char id[30],int x)
 
 }
 
-*/
+
 
 
 /*
