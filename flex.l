@@ -36,7 +36,7 @@ ENTERO      {digito}+
 "DATO"  {return (dato);}
 "FINALIZAR" {return (finalizar);}
 
-{ENTERO} {return(ENTERO);}
+{ENTERO} {yylval.numero = atof(yytext); return(ENTERO);}
 {ID} {return (ID);}
 {NOMAR} {return (NOMARR);}
 
@@ -66,9 +66,4 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-*/
-
-/* para compilar
-flex lexico.l
-cc lex.yy.c -o milex -lfl -lm
 */

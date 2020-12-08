@@ -88,6 +88,12 @@ struct arreglo A;
 %token asignar
 %token finalizar
 
+
+%type <numero> constante
+%type <texto> arreglo
+
+%start s
+
 %%
 
 /***********************
@@ -105,7 +111,7 @@ INST: 		INICIA |
           DAT
 			    ;
 
-INICIA: iniciar '(' NOMARR ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
+INICIA: iniciar '(' arreglo ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
 			;
 
 METE: meter '(' NOMARR ',' ENTERO ',' ENTERO ')' {meterEnArreglo($3,$5,$7);}
@@ -126,6 +132,16 @@ PARTE: partir
 FINALIZA: finalizar
 		  ;
 
+arreglo: NOMARR {
+  $$= $1 ;}
+      ;
+
+
+constante: ENTERO {
+   scanf("%d", &$1);
+  $$= $1 ;}
+      ;
+
 %%
 /**********************
  * Codigo C Adicional *
@@ -139,13 +155,13 @@ void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,in
 {
 	strcpy(A.nombre, id);
 	A.valor1 = x1;
-    A.valor2 = x2;
-    A.valor3 = x3;
-    A.valor4 = x4;
-    A.valor5 = x5;
-    A.valor6 = x6;
-    A.valor7 = x7;
-    A.valor8 = x8;
+  A.valor2 = x2;
+  A.valor3 = x3;
+  A.valor4 = x4;
+  A.valor5 = x5;
+  A.valor6 = x6;
+  A.valor7 = x7;
+  A.valor8 = x8;
 	printf("Arreglo creado");
 }
 
@@ -180,7 +196,7 @@ int main(int argc,char **argv) //Programa Principal
 }
 
 /* para compilar
-bison -d sintactico.y
-flex lexico.l
-cc lex.yy.c sintactico.tab.c -o analizador -lfl -lm
+win_bison -d sintactico.y
+win_flex flex.l
+gcc lex.yy.c sintactico.tab.c -o analizador  -lm
 */
