@@ -167,48 +167,9 @@ void mirarArreglo(char id[30])
 
 int datoDeArreglo(char id[30],int x)
 {
-
+return 0;
 }
 
-
-
-
-/*
-void agregarID(int pos, char id[50], int num){ //funcion '(' agregar un identificador y su respectivo valor en el arreglo buffer en la asignacion
-
-	strcpy(buffer[pos].nombre, id);
-    buffer[pos].valor=num;
-}
-int buscarID(char id[50]){  //esta funcion se encarga de retornar el valor que tiene almacenado un id en la tabla de buffer cuando es referenciado
-							
-	int p=0;
-	while(strcmp(buffer[p].nombre, id) != 0){
-		p++;
-	}
-	return buffer[p].valor;
-}
-void se'('r(char palabra[50]){/*se'(' la entrada del token IDENTIFICADOR en el error explicado en el informe, '(' así se'('rlos en dos strings, 
-								los cuales seran utilizados en la tabla buffer
-
-  	for(int k= 0; k<50;k++){
- 		parte1[k]=0;
-  		parte2[k]=0;
-	}
-  	int posi=0;
-	while(palabra[posi] != '='){
-   		posi++;
-	}
-	int j=0;
-	for(int i =0;i<50;i++){
-		if (i<posi) parte1[i]=palabra[i];
-		else if (i==posi);
-		else{
-			parte2[j]=palabra[i];
-    		j++;
-    	}
-  	}
-}
-*/
 
 
 int main(int argc,char **argv) //Programa Principal
