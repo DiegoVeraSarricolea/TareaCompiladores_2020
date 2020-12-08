@@ -1,0 +1,3 @@
+S : iniciar INST finalizar
+INST : INST INST | DATO
+DATO: dato(const)

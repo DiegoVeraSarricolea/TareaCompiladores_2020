@@ -4,6 +4,9 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+
+    #include "sintactico.tab.h"
+
     int lineno = 1; // initialize to 1
     void ret_print(char *tipo_token);
     void yyerror();
@@ -24,20 +27,21 @@ ENTERO      {digito}+
        
 <ML_COMMENT>"\n"        { lineno += 1; }
  
-"PARTIR" {ret_print("PARTE");}
-"INICIAR" {ret_print("INICIA");}
-"METER" {ret_print("METE");}
-"SACAR" {ret_print("SACA");}
-"DATO"  {ret_print("DAT");}
-"FINALIZAR" {ret_print("FINALIZA");}
+"PARTIR" {return PARTE;}
+"INICIAR" {return INICIA;}
+"METER" {return METE;}
+"SACAR" {return SACA;}
+"DATO"  {return DAT;}
+"FINALIZAR" {return FINALIZA;}
 
-{ENTERO} {ret_print("ENTERO");}
-{ID} {ret_print("ID");}
-{NOMAR} {ret_print("NOMARR");}
-"(" {ret_print("PARA");}
-")" {ret_print("PARC");}
-"," {ret_print("COMA");}
-"=" {ret_print("IGUAL");}
+{ENTERO} {return ENTERO;}
+{ID} {return ID;}
+{NOMAR} {return NOMARR;}
+
+"(" {return '(';}
+")" {return ')';}
+"," {return ',';}
+"=" {return '=';}
 [ \t] ; /* ignora espacios */
 "\n"            { lineno += 1; }
 [ \t\r\f]+          /*Borra espacio en blanco */
@@ -60,3 +64,8 @@ int main(int argc, char *argv[]){
     yylex();
     return 0;
 }
+
+/* para compilar
+flex lexico.l
+cc lex.yy.c -o milex -lfl -lm
+*/

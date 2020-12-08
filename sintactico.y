@@ -17,10 +17,11 @@
  
  //Declaracion de metodos 
   void yyerror(char *s);
-  void agregarID(int pos, char id[50], int num);
-  void separar(char palabra[50]);
-  int buscarID(char id[50]);
-  //manejar_ceros()
+  void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8);
+  //void meterEnArreglo(char id[30],int x,int y);
+  //void sacarDeArreglo(char id[30],int y);
+  //arreglo mirarArreglo(char id[30]);
+  //int datoDeArreglo(char id[30],int x);
 
 
 //Declaracion del nodo del buffer de identificadores
@@ -39,9 +40,12 @@ struct arreglo {
     int valor6;
     int valor7;
     int valor8;
-}
+};
+
+struct arreglo A;
 
 //Declaracion de variables globales
+/*
   struct id buffer[1000];
   int pos=0;
   char string[50];
@@ -55,10 +59,7 @@ struct arreglo {
   int valor6;
   int valor7;
   int valor8;
-
-
-
-
+*/
 
 %}
 
@@ -77,77 +78,53 @@ struct arreglo {
 /*Declaración de tokens*/
 %token <ENTERO> const
 %token <NOMAR> nomarr
-%token PARTE
-%token INST
-%token INICIA
-%token <texto>IGUAL
-%token METE
-%token SACA
-%token MIRA
-%token DAT
-%token ASIGNAR
-
-
-
-/*Declaracion de variables que tendrán valor asociado*/
-%type <numero> dato
-%type <numero> exp
-
-
-
+%token partir
+%token iniciar
+%token meter
+%token sacar
+%token mirar
+%token dato
+%token asignar
+%token finalizar
 
 %%
+
 /***********************
  * Reglas Gramaticales *
  ***********************/
 
 /*Inicio de la gramatica*/
-s :			PARTE inst FINALIZA	
+s :			PARTE INST FINALIZA	
 			;
 
-inst:		inst inst
-			|INICIA
-			|METE 
-            |SACA
-            |MIRA
-            |DAT
+INST: 		INICIA |
+			    METE |
+          SACA |
+          MIRA |
+          DAT
+			    ;
+
+INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
 			;
 
-INICIA: iniciar PARA nomarr COMA const COMA const COMA const COMA const COMA const COMA const COMA const COMA const PARC {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
-			;
+METE: meter '(' nomarr ',' const ',' const ')' {meterEnArreglo($3,$5,$7);}
+		;
 
-inst_pos:	POS PARA exp COMA exp PARC {moveto(53*$3,53*$5);}
-			;
+SACA: sacar '(' nomarr ',' const ')' {sacarDeArreglo($3,$5);}
+		;
 
-inst_asig:	DAVALOR IDENTIFICADOR IGUAL dato {separar($2);agregarID(pos,parte1,atoi(parte2)); pos++;}
-			;
-inst_asig2:	DAVALOR IDENTIFICADOR IGUAL colores {separar($2);agregarID(pos,parte1,$4); pos++;}
-			;			
+MIRA: mirar '(' nomarr ')' {mirarArreglo($3);}
+		;
 
-inst_dir:	DER PARA exp PARC 	{lineto(53*$3+getx(),gety());}
-			|ARR PARA exp PARC	{lineto(getx(),gety()-53*$3);}
-			|ABA PARA exp PARC	{lineto(getx(),gety()+53*$3);}
-			|IZQ PARA exp PARC	{lineto(getx()-53*$3,gety());}
-			;
+DAT: dato '(' nomarr ',' const ')' {datoDeArreglo($3,$5);}
+		;
 
-colores:	ROJO 		{$$=4;}
-			|VERDE 		{$$=2;}
-			|AZUL		{$$=1;}
-			|AMARILLO	{$$=14;}
-			|BLANCO		{$$=15;}
-			;
+PARTE: partir
+	   ;
 
-dato:		CONST {$$=$1; }
-			
-			;
+FINALIZA: finalizar
+		  ;
 
-exp:		IDENTIFICADOR {char pala[50]; strcpy(pala,$1); int i=buscarID(pala);$$=i; }
-			|CONST {$$=$1;}
-			;
-
-col:		colores
-			|IDENTIFICADOR {$$=buscarID($1);}
-			;
 %%
 /**********************
  * Codigo C Adicional *
@@ -157,8 +134,46 @@ void yyerror(char *s)
 	printf("Error sintactico %s \n",s);
 }
 
+void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8)
+{
+	strcpy(A.nombre, id);
+	A.valor1 = x1;
+    A.valor2 = x2;
+    A.valor3 = x3;
+    A.valor4 = x4;
+    A.valor5 = x5;
+    A.valor6 = x6;
+    A.valor7 = x7;
+    A.valor8 = x8;
+	printf("Arreglo creado");
+}
 
-void agregarID(int pos, char id[50], int num){ //funcion para agregar un identificador y su respectivo valor en el arreglo buffer en la asignacion
+/*
+void meterEnArreglo(char id[30],int x,int y)
+{
+
+}
+
+void sacarDeArreglo(char id[30],int y)
+{
+
+}
+
+arreglo mirarArreglo(char id[30])
+{
+
+}
+
+int datoDeArreglo(char id[30],int x)
+{
+
+}
+
+*/
+
+
+/*
+void agregarID(int pos, char id[50], int num){ //funcion '(' agregar un identificador y su respectivo valor en el arreglo buffer en la asignacion
 
 	strcpy(buffer[pos].nombre, id);
     buffer[pos].valor=num;
@@ -171,8 +186,8 @@ int buscarID(char id[50]){  //esta funcion se encarga de retornar el valor que t
 	}
 	return buffer[p].valor;
 }
-void separar(char palabra[50]){/*separa la entrada del token IDENTIFICADOR en el error explicado en el informe, para así separarlos en dos strings, 
-								los cuales seran utilizados en la tabla buffer*/
+void se'('r(char palabra[50]){/*se'(' la entrada del token IDENTIFICADOR en el error explicado en el informe, '(' así se'('rlos en dos strings, 
+								los cuales seran utilizados en la tabla buffer
 
   	for(int k= 0; k<50;k++){
  		parte1[k]=0;
@@ -192,23 +207,18 @@ void separar(char palabra[50]){/*separa la entrada del token IDENTIFICADOR en el
     	}
   	}
 }
+*/
+
+
 int main(int argc,char **argv) //Programa Principal
 {
-	printf("Bienvenida al mejor traductor de lenguaje ETT de la UACH, Instrucciones:\n");
-	printf("Para comenzar el programa introduzca: editar\n");
-	printf("Los comandos reconocidos por el lenguaje ETT son: \n\n");
-	printf("davalor id=dato: permite asignar a id el valor de dato el cual peude ser cualquier numero entero o color entre estos: AMARILLO, ROJO, AZUL, VERDE, BLANCO.\n\n");
-	printf("pos(exp,exp): este comando sirve para establecer la posicion en la que queremos empezar a dibujar a continuacion en la ventana, siendo exp un numero o una variable la cual debe estar previamente definida.\n\n");
-	printf("color(col): establece el color para las proximas lineas en col. col debe ser un color entre los mencionados anteriormente o una variable que se encuentre definida con un color previamente.\n\n");
-	printf("porfavor considerar que la ventana sobre la cual puede dibujar tiene dimensiones de 12 cm de ancho por 9 de alto, y el programa no controla los limites del dibujo, por lo que su dibujo podria llegar a salir de la zona visible eventualmente! \n \n");
-	printf("Una vez haya terminado de ingresar comandos la palabra para indicar al programa que termino es: termino \n\n");
-	printf("Estas instrucciones que lee a continuacion es lo que genera graphics.h, por tanto no tomar como consideracion, disfrute! \n \n");
-
-	int gd = DETECT,gm; 
-	initgraph (& gd,& gm,NULL); //inicializacion de la ventana para dibujar
-
 	yyparse(); //funcion propio de bison que ejecuta el analizador sintactico
-	closegraph(); //cierra la ventana si el analisis sintactico termino de manera correcta
 	printf("La ejecucion termino de manera correcta ");
 	return 0;
 }
+
+/* para compilar
+bison -d sintactico.y
+flex lexico.l
+cc lex.yy.c sintactico.tab.c -o analizador -lfl -lm
+*/

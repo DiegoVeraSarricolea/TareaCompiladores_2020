@@ -1,0 +1,530 @@
+Terminals unused in grammar
+
+   asignar
+
+
+State 22 conflicts: 5 shift/reduce
+
+
+Grammar
+
+    0 $accept: s $end
+
+    1 s: PARTE INST FINALIZA
+
+    2 INST: INST INST
+    3     | INICIA
+    4     | METE
+    5     | SACA
+    6     | MIRA
+    7     | DAT
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    9 METE: meter '(' nomarr ',' const ',' const ')'
+
+   10 SACA: sacar '(' nomarr ',' const ')'
+
+   11 MIRA: mirar '(' nomarr ')'
+
+   12 DAT: dato '(' nomarr ',' const ')'
+
+   13 PARTE: partir
+
+   14 FINALIZA: finalizar
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 8 9 10 11 12
+')' (41) 8 9 10 11 12
+',' (44) 8 9 10 12
+error (256)
+const (258) 8 9 10 12
+nomarr (259) 8 9 10 11 12
+partir (260) 13
+iniciar (261) 8
+meter (262) 9
+sacar (263) 10
+mirar (264) 11
+dato (265) 12
+asignar (266)
+finalizar (267) 14
+
+
+Nonterminals, with rules where they appear
+
+$accept (16)
+    on left: 0
+s (17)
+    on left: 1, on right: 0
+INST (18)
+    on left: 2 3 4 5 6 7, on right: 1 2
+INICIA (19)
+    on left: 8, on right: 3
+METE (20)
+    on left: 9, on right: 4
+SACA (21)
+    on left: 10, on right: 5
+MIRA (22)
+    on left: 11, on right: 6
+DAT (23)
+    on left: 12, on right: 7
+PARTE (24)
+    on left: 13, on right: 1
+FINALIZA (25)
+    on left: 14, on right: 1
+
+
+State 0
+
+    0 $accept: . s $end
+
+    partir  shift, and go to state 1
+
+    s      go to state 2
+    PARTE  go to state 3
+
+
+State 1
+
+   13 PARTE: partir .
+
+    $default  reduce using rule 13 (PARTE)
+
+
+State 2
+
+    0 $accept: s . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 s: PARTE . INST FINALIZA
+
+    iniciar  shift, and go to state 5
+    meter    shift, and go to state 6
+    sacar    shift, and go to state 7
+    mirar    shift, and go to state 8
+    dato     shift, and go to state 9
+
+    INST    go to state 10
+    INICIA  go to state 11
+    METE    go to state 12
+    SACA    go to state 13
+    MIRA    go to state 14
+    DAT     go to state 15
+
+
+State 4
+
+    0 $accept: s $end .
+
+    $default  accept
+
+
+State 5
+
+    8 INICIA: iniciar . '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    '('  shift, and go to state 16
+
+
+State 6
+
+    9 METE: meter . '(' nomarr ',' const ',' const ')'
+
+    '('  shift, and go to state 17
+
+
+State 7
+
+   10 SACA: sacar . '(' nomarr ',' const ')'
+
+    '('  shift, and go to state 18
+
+
+State 8
+
+   11 MIRA: mirar . '(' nomarr ')'
+
+    '('  shift, and go to state 19
+
+
+State 9
+
+   12 DAT: dato . '(' nomarr ',' const ')'
+
+    '('  shift, and go to state 20
+
+
+State 10
+
+    1 s: PARTE INST . FINALIZA
+    2 INST: INST . INST
+
+    iniciar    shift, and go to state 5
+    meter      shift, and go to state 6
+    sacar      shift, and go to state 7
+    mirar      shift, and go to state 8
+    dato       shift, and go to state 9
+    finalizar  shift, and go to state 21
+
+    INST      go to state 22
+    INICIA    go to state 11
+    METE      go to state 12
+    SACA      go to state 13
+    MIRA      go to state 14
+    DAT       go to state 15
+    FINALIZA  go to state 23
+
+
+State 11
+
+    3 INST: INICIA .
+
+    $default  reduce using rule 3 (INST)
+
+
+State 12
+
+    4 INST: METE .
+
+    $default  reduce using rule 4 (INST)
+
+
+State 13
+
+    5 INST: SACA .
+
+    $default  reduce using rule 5 (INST)
+
+
+State 14
+
+    6 INST: MIRA .
+
+    $default  reduce using rule 6 (INST)
+
+
+State 15
+
+    7 INST: DAT .
+
+    $default  reduce using rule 7 (INST)
+
+
+State 16
+
+    8 INICIA: iniciar '(' . nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    nomarr  shift, and go to state 24
+
+
+State 17
+
+    9 METE: meter '(' . nomarr ',' const ',' const ')'
+
+    nomarr  shift, and go to state 25
+
+
+State 18
+
+   10 SACA: sacar '(' . nomarr ',' const ')'
+
+    nomarr  shift, and go to state 26
+
+
+State 19
+
+   11 MIRA: mirar '(' . nomarr ')'
+
+    nomarr  shift, and go to state 27
+
+
+State 20
+
+   12 DAT: dato '(' . nomarr ',' const ')'
+
+    nomarr  shift, and go to state 28
+
+
+State 21
+
+   14 FINALIZA: finalizar .
+
+    $default  reduce using rule 14 (FINALIZA)
+
+
+State 22
+
+    2 INST: INST . INST
+    2     | INST INST .
+
+    iniciar  shift, and go to state 5
+    meter    shift, and go to state 6
+    sacar    shift, and go to state 7
+    mirar    shift, and go to state 8
+    dato     shift, and go to state 9
+
+    iniciar   [reduce using rule 2 (INST)]
+    meter     [reduce using rule 2 (INST)]
+    sacar     [reduce using rule 2 (INST)]
+    mirar     [reduce using rule 2 (INST)]
+    dato      [reduce using rule 2 (INST)]
+    $default  reduce using rule 2 (INST)
+
+    INST    go to state 22
+    INICIA  go to state 11
+    METE    go to state 12
+    SACA    go to state 13
+    MIRA    go to state 14
+    DAT     go to state 15
+
+
+State 23
+
+    1 s: PARTE INST FINALIZA .
+
+    $default  reduce using rule 1 (s)
+
+
+State 24
+
+    8 INICIA: iniciar '(' nomarr . ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 29
+
+
+State 25
+
+    9 METE: meter '(' nomarr . ',' const ',' const ')'
+
+    ','  shift, and go to state 30
+
+
+State 26
+
+   10 SACA: sacar '(' nomarr . ',' const ')'
+
+    ','  shift, and go to state 31
+
+
+State 27
+
+   11 MIRA: mirar '(' nomarr . ')'
+
+    ')'  shift, and go to state 32
+
+
+State 28
+
+   12 DAT: dato '(' nomarr . ',' const ')'
+
+    ','  shift, and go to state 33
+
+
+State 29
+
+    8 INICIA: iniciar '(' nomarr ',' . const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    const  shift, and go to state 34
+
+
+State 30
+
+    9 METE: meter '(' nomarr ',' . const ',' const ')'
+
+    const  shift, and go to state 35
+
+
+State 31
+
+   10 SACA: sacar '(' nomarr ',' . const ')'
+
+    const  shift, and go to state 36
+
+
+State 32
+
+   11 MIRA: mirar '(' nomarr ')' .
+
+    $default  reduce using rule 11 (MIRA)
+
+
+State 33
+
+   12 DAT: dato '(' nomarr ',' . const ')'
+
+    const  shift, and go to state 37
+
+
+State 34
+
+    8 INICIA: iniciar '(' nomarr ',' const . ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 38
+
+
+State 35
+
+    9 METE: meter '(' nomarr ',' const . ',' const ')'
+
+    ','  shift, and go to state 39
+
+
+State 36
+
+   10 SACA: sacar '(' nomarr ',' const . ')'
+
+    ')'  shift, and go to state 40
+
+
+State 37
+
+   12 DAT: dato '(' nomarr ',' const . ')'
+
+    ')'  shift, and go to state 41
+
+
+State 38
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' . const ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    const  shift, and go to state 42
+
+
+State 39
+
+    9 METE: meter '(' nomarr ',' const ',' . const ')'
+
+    const  shift, and go to state 43
+
+
+State 40
+
+   10 SACA: sacar '(' nomarr ',' const ')' .
+
+    $default  reduce using rule 10 (SACA)
+
+
+State 41
+
+   12 DAT: dato '(' nomarr ',' const ')' .
+
+    $default  reduce using rule 12 (DAT)
+
+
+State 42
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const . ',' const ',' const ',' const ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 44
+
+
+State 43
+
+    9 METE: meter '(' nomarr ',' const ',' const . ')'
+
+    ')'  shift, and go to state 45
+
+
+State 44
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' . const ',' const ',' const ',' const ',' const ',' const ')'
+
+    const  shift, and go to state 46
+
+
+State 45
+
+    9 METE: meter '(' nomarr ',' const ',' const ')' .
+
+    $default  reduce using rule 9 (METE)
+
+
+State 46
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const . ',' const ',' const ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 47
+
+
+State 47
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' . const ',' const ',' const ',' const ',' const ')'
+
+    const  shift, and go to state 48
+
+
+State 48
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const . ',' const ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 49
+
+
+State 49
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' . const ',' const ',' const ',' const ')'
+
+    const  shift, and go to state 50
+
+
+State 50
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const . ',' const ',' const ',' const ')'
+
+    ','  shift, and go to state 51
+
+
+State 51
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' . const ',' const ',' const ')'
+
+    const  shift, and go to state 52
+
+
+State 52
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const . ',' const ',' const ')'
+
+    ','  shift, and go to state 53
+
+
+State 53
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' . const ',' const ')'
+
+    const  shift, and go to state 54
+
+
+State 54
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const . ',' const ')'
+
+    ','  shift, and go to state 55
+
+
+State 55
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' . const ')'
+
+    const  shift, and go to state 56
+
+
+State 56
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const . ')'
+
+    ')'  shift, and go to state 57
+
+
+State 57
+
+    8 INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')' .
+
+    $default  reduce using rule 8 (INICIA)
