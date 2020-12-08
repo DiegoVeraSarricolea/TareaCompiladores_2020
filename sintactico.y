@@ -90,7 +90,7 @@ struct arreglo A;
 
 
 %type <numero> constante
-%type <texto> arreglo
+%type <texto> arr
 
 %start s
 
@@ -111,7 +111,7 @@ INST: 		INICIA |
           DAT
 			    ;
 
-INICIA: iniciar '(' arreglo ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
+INICIA: iniciar '(' arr ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
 			;
 
 METE: meter '(' NOMARR ',' ENTERO ',' ENTERO ')' {meterEnArreglo($3,$5,$7);}
@@ -132,7 +132,7 @@ PARTE: partir
 FINALIZA: finalizar
 		  ;
 
-arreglo: NOMARR {
+arr: NOMARR {
   $$= $1 ;}
       ;
 
@@ -153,6 +153,7 @@ void yyerror(char *s)
 
 void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8)
 {
+    printf("Estoy en crearArrelgo");
 	strcpy(A.nombre, id);
 	A.valor1 = x1;
   A.valor2 = x2;
