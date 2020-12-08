@@ -27,16 +27,16 @@ ENTERO      {digito}+
        
 <ML_COMMENT>"\n"        { lineno += 1; }
  
-"PARTIR" {return PARTE;}
-"INICIAR" {return INICIA;}
-"METER" {return METE;}
-"SACAR" {return SACA;}
-"DATO"  {return DAT;}
-"FINALIZAR" {return FINALIZA;}
+"PARTIR" {return (partir);}
+"INICIAR" {return (iniciar);}
+"METER" {return (meter);}
+"SACAR" {return (sacar);}
+"DATO"  {return (dato);}
+"FINALIZAR" {return (finalizar);}
 
 {ENTERO} {return(ENTERO);}
-{ID} {return ID;}
-{NOMAR} {return NOMARR;}
+{ID} {return (ID);}
+{NOMAR} {return (NOMARR);}
 
 "(" {return '(';}
 ")" {return ')';}

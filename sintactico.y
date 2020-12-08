@@ -78,6 +78,7 @@ struct arreglo A;
 /*Declaración de tokens*/
 %token <numero> ENTERO
 %token <texto> NOMARR
+%token <texto>ID
 %token partir
 %token iniciar
 %token meter
