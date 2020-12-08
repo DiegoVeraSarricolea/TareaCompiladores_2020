@@ -76,8 +76,8 @@ struct arreglo A;
 }
 
 /*Declaración de tokens*/
-%token <ENTERO> const
-%token <NOMAR> nomarr
+%token <numero> ENTERO
+%token <texto> NOMARR
 %token partir
 %token iniciar
 %token meter
@@ -104,19 +104,19 @@ INST: 		INICIA |
           DAT
 			    ;
 
-INICIA: iniciar '(' nomarr ',' const ',' const ',' const ',' const ',' const ',' const ',' const ',' const ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
+INICIA: iniciar '(' NOMARR ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ',' ENTERO ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
 			;
 
-METE: meter '(' nomarr ',' const ',' const ')' {meterEnArreglo($3,$5,$7);}
+METE: meter '(' NOMARR ',' ENTERO ',' ENTERO ')' {meterEnArreglo($3,$5,$7);}
 		;
 
-SACA: sacar '(' nomarr ',' const ')' {sacarDeArreglo($3,$5);}
+SACA: sacar '(' NOMARR ',' ENTERO ')' {sacarDeArreglo($3,$5);}
 		;
 
-MIRA: mirar '(' nomarr ')' {mirarArreglo($3);}
+MIRA: mirar '(' NOMARR ')' {mirarArreglo($3);}
 		;
 
-DAT: dato '(' nomarr ',' const ')' {datoDeArreglo($3,$5);}
+DAT: dato '(' NOMARR ',' ENTERO ')' {datoDeArreglo($3,$5);}
 		;
 
 PARTE: partir
