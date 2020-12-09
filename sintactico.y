@@ -17,58 +17,41 @@
  
  //Declaracion de metodos 
   void yyerror(char *s);
+  int buscaPosicionArreglo(char id[50]);
   void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8);
   void meterEnArreglo(char id[30],int x,int y);
   void sacarDeArreglo(char id[30],int y);
   void mirarArreglo(char id[30]);
-  int datoDeArreglo(char id[30],int x);
+  void datoDeArreglo(char id[30],int x);
+  void identificadorArreglo(char id[30]);
 
 
 //Declaracion del nodo del buffer de identificadores
   struct id {
-    char nombre[50];
+    char nombre[30];
     int valor;
-};
-
-struct arreglo {
-    char nombre[50];
-    int valor1;
-    int valor2;
-    int valor3;
-    int valor4;
-    int valor5;
-    int valor6;
-    int valor7;
-    int valor8;
 };
 
 struct arreglo A;
 
-//Declaracion de variables globales
-/*
-  struct id buffer[1000];
-  int pos=0;
-  char string[50];
-  int x;
-  int y;
-  int valor1;
-  int valor2;
-  int valor3;
-  int valor4;
-  int valor5;
-  int valor6;
-  int valor7;
-  int valor8;
-*/
+char auxiliarArreglo[30];
+
+struct arreglo
+{
+    char nombre[50];
+    int valor[8];
+};
+
+struct arreglo buffer[1000];
+int aux = 0;
+size_t n = sizeof(buffer) / sizeof(buffer[0]);
+
 
 %}
 
 /*************************
   Declaraciones de Bison *
  *************************/
-
-/*Declaración tipo de dato a utilizar en las terminales y variables 
-  de la gramatica, en este caso entero y string*/
 %union
 {
   int numero;
@@ -78,7 +61,7 @@ struct arreglo A;
 /*Declaración de tokens*/
 %token <numero> ENTERO
 %token <texto> NOMARR
-%token <texto>ID
+%token <texto> ID
 %token partir
 %token iniciar
 %token meter
@@ -88,10 +71,13 @@ struct arreglo A;
 %token asignar
 %token finalizar
 
+%token PARA
+%token PARC
+%token COMA
+
 
 %type <numero> constante
 %type <texto> arr
-
 %start s
 
 %%
@@ -104,26 +90,34 @@ struct arreglo A;
 s :			PARTE INST FINALIZA	
 			;
 
-INST: 		INICIA |
+INST: 	INST INST|	
+        INICIA |
 			    METE |
           SACA |
           MIRA |
           DAT
 			    ;
 
-INICIA: iniciar '(' arr ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ',' constante ')' {creaArreglo($3, $5, $7, $9, $11, $13, $15, $17, $19);}
-			;
+INICIA: iniciar PARA arr COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,$11,$13,$15,$17,$19);} |
+        iniciar PARA arr COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,$11,$13,$15,$17,0);} |
+        iniciar PARA arr COMA constante COMA constante COMA constante COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,$11,$13,$15,0,0);} |
+        iniciar PARA arr COMA constante COMA constante COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,$11,$13,0,0,0);} |
+        iniciar PARA arr COMA constante COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,$11,0,0,0,0);} |
+        iniciar PARA arr COMA constante COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,$9,0,0,0,0,0);} |
+        iniciar PARA arr COMA constante COMA constante PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,$7,0,0,0,0,0,0);} |
+        iniciar PARA arr COMA constante  PARC {identificadorArreglo($3); creaArreglo(auxiliarArreglo,$5,0,0,0,0,0,0,0);} 
+	;
 
-METE: meter '(' NOMARR ',' ENTERO ',' ENTERO ')' {meterEnArreglo($3,$5,$7);}
+METE: meter PARA NOMARR COMA ENTERO COMA ENTERO PARC {identificadorArreglo($3); meterEnArreglo(auxiliarArreglo,$5,$7);}
 		;
 
-SACA: sacar '(' NOMARR ',' ENTERO ')' {sacarDeArreglo($3,$5);}
+SACA: sacar PARA NOMARR COMA ENTERO PARC {identificadorArreglo($3); sacarDeArreglo(auxiliarArreglo,$5);}
 		;
 
-MIRA: mirar '(' NOMARR ')' {mirarArreglo($3);}
+MIRA: mirar PARA NOMARR PARC {identificadorArreglo($3); mirarArreglo(auxiliarArreglo);}
 		;
 
-DAT: dato '(' NOMARR ',' ENTERO ')' {datoDeArreglo($3,$5);}
+DAT: dato PARA NOMARR COMA ENTERO PARC {identificadorArreglo($3); datoDeArreglo(auxiliarArreglo,$5);}
 		;
 
 PARTE: partir
@@ -132,14 +126,11 @@ PARTE: partir
 FINALIZA: finalizar
 		  ;
 
-arr: NOMARR {
-  $$= $1 ;}
+arr: NOMARR { $$ = $1;}
       ;
 
 
-constante: ENTERO {
-   scanf("%d", &$1);
-  $$= $1 ;}
+constante: ENTERO { $$ = $1;}
       ;
 
 %%
@@ -151,40 +142,92 @@ void yyerror(char *s)
 	printf("Error sintactico %s \n",s);
 }
 
-void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8)
-{
-    printf("Estoy en crearArrelgo");
-	strcpy(A.nombre, id);
-	A.valor1 = x1;
-  A.valor2 = x2;
-  A.valor3 = x3;
-  A.valor4 = x4;
-  A.valor5 = x5;
-  A.valor6 = x6;
-  A.valor7 = x7;
-  A.valor8 = x8;
-	printf("Arreglo creado");
+void identificadorArreglo(char id[30]){
+  int i = 0;
+  while( i < 30 && id[i] != ',' && id[i] !=')' ){
+    auxiliarArreglo[i] = id[i];
+    i++;
+  }
 }
 
 
-void meterEnArreglo(char id[30],int x,int y)
+void creaArreglo(char id[50], int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8)
 {
 
+    //strcpy(buffer, A);
+    while (aux < n)
+    {
+        if (buffer[aux].valor[0] == NULL)
+        {
+            strcpy(buffer[aux].nombre, id);
+            buffer[aux].valor[0] = x1;
+            buffer[aux].valor[1] = x2;
+            buffer[aux].valor[2] = x3;
+            buffer[aux].valor[3] = x4;
+            buffer[aux].valor[4] = x5;
+            buffer[aux].valor[5] = x6;
+            buffer[aux].valor[6] = x7;
+            buffer[aux].valor[7] = x8;
+            //printf("se agregó %s, en el buffer en la posición %i\n", buffer[aux].nombre, aux);
+            break;
+        }
+        else
+        {
+            aux = aux + 1;
+        }
+    }
 }
 
-void sacarDeArreglo(char id[30],int y)
-{
 
+int buscaPosicionArreglo(char id[50])
+{ //esta funcion se encarga de retornar el valor que tiene almacenado un id en la tabla de buffer cuando es referenciado
+
+    int p = 0;
+    while (strcmp(buffer[p].nombre, id) != 0)
+    {
+        p++;
+    }
+    return p;
+    //controlar cuando salga del array
+}
+
+void meterEnArreglo(char id[50], int x, int y)
+{
+    int pos = buscaPosicionArreglo(id);
+    buffer[pos].valor[y-1] = x;
 }
 
 void mirarArreglo(char id[30])
 {
+    int pos = buscaPosicionArreglo(id);
+    //printf("el arreglo %s contiente los siguientes elementos: ", buffer[pos].nombre);
+    for (int i = 0; i < 8; i++)
+    {
+       if (buffer[pos].valor[i] == 0) printf("%i ", buffer[pos].valor[i]);
+    }
+     printf("\n");
+}
+
+
+void sacarDeArreglo(char id[30],int y)
+{
+  int pos = buscaPosicionArreglo(id);
+
+  buffer[pos].valor[y-1] = buffer[pos].valor[y];
+
+  int aux = 0;
+  for(int i = y; i<7 ;i++) buffer[pos].valor[i] = buffer[pos].valor[i+1];
+
+  buffer[pos].valor[7] = 0;
 
 }
 
-int datoDeArreglo(char id[30],int x)
+
+void datoDeArreglo(char id[30],int x)
 {
-return 0;
+  int pos = buscaPosicionArreglo(id);
+  printf("%i ", buffer[pos].valor[x-1]);
+
 }
 
 

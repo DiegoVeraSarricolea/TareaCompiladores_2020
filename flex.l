@@ -21,28 +21,31 @@ digito       [0-9]
 ID           [a-z][a-zA-Z0-9]+
 
  
-NOMAR          "L"{letras}*{digito}+
-ENTERO      {digito}+
+NOMAR        "L"{letras}*{digito}+
+ENTERO      [0-9]+
 
 %%
+
+
+{ENTERO} {yylval.numero=atoi(yytext); return(ENTERO);}
+{ID} {return (ID);}
+{NOMAR} {yylval.texto=yytext; return (NOMARR);}
 
        
 <ML_COMMENT>"\n"        { lineno += 1; }
  
 "PARTIR" {return (partir);}
 "INICIAR" {return (iniciar);}
+"MIRAR" {return (mirar);}
 "METER" {return (meter);}
 "SACAR" {return (sacar);}
 "DATO"  {return (dato);}
 "FINALIZAR" {return (finalizar);}
 
-{ENTERO} {yylval.numero = atof(yytext); return(ENTERO);}
-{ID} {return (ID);}
-{NOMAR} {return (NOMARR);}
 
-"(" {return '(';}
-")" {return ')';}
-"," {return ',';}
+"(" {return (PARA);}
+")" {return (PARC);}
+"," { return (COMA);}
 "=" {return '=';}
 [ \t] ; /* ignora espacios */
 "\n"            { lineno += 1; }
