@@ -123,7 +123,7 @@ DAT: dato PARA NOMARR COMA ENTERO PARC {identificadorArreglo($3); datoDeArreglo(
 PARTE: partir
 	   ;
 
-FINALIZA: finalizar
+FINALIZA: finalizar {exit (-1);}
 		  ;
 
 arr: NOMARR { $$ = $1;}
@@ -168,7 +168,7 @@ void creaArreglo(char id[50], int x1, int x2, int x3, int x4, int x5, int x6, in
             buffer[aux].valor[5] = x6;
             buffer[aux].valor[6] = x7;
             buffer[aux].valor[7] = x8;
-            //printf("se agregó %s, en el buffer en la posición %i\n", buffer[aux].nombre, aux);
+            printf("Se ha agregado %s \n", buffer[aux].nombre);
             break;
         }
         else
@@ -194,7 +194,12 @@ int buscaPosicionArreglo(char id[50])
 void meterEnArreglo(char id[50], int x, int y)
 {
     int pos = buscaPosicionArreglo(id);
+
+    for(int i = 6; i>=y-1; i--){
+      buffer[pos].valor[i+1] = buffer[pos].valor[i]; 
+    }
     buffer[pos].valor[y-1] = x;
+    printf("Se ha metido con exito\n");
 }
 
 void mirarArreglo(char id[30])
@@ -203,7 +208,7 @@ void mirarArreglo(char id[30])
     //printf("el arreglo %s contiente los siguientes elementos: ", buffer[pos].nombre);
     for (int i = 0; i < 8; i++)
     {
-       if (buffer[pos].valor[i] == 0) printf("%i ", buffer[pos].valor[i]);
+       if (buffer[pos].valor[i] != 0) printf("%i ", buffer[pos].valor[i]);
     }
      printf("\n");
 }
@@ -219,6 +224,7 @@ void sacarDeArreglo(char id[30],int y)
   for(int i = y; i<7 ;i++) buffer[pos].valor[i] = buffer[pos].valor[i+1];
 
   buffer[pos].valor[7] = 0;
+  printf("Se ha sacado con exito \n");
 
 }
 
