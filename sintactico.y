@@ -27,12 +27,6 @@
 
 
 //Declaracion del nodo del buffer de identificadores
-  struct id {
-    char nombre[30];
-    int valor;
-};
-
-struct arreglo A;
 
 char auxiliarArreglo[30];
 
@@ -153,8 +147,6 @@ void identificadorArreglo(char id[30]){
 
 void creaArreglo(char id[50], int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8)
 {
-
-    //strcpy(buffer, A);
     while (aux < n)
     {
         if (buffer[aux].valor[0] == NULL)
@@ -240,6 +232,9 @@ void datoDeArreglo(char id[30],int x)
 
 int main(int argc,char **argv) //Programa Principal
 {
+    printf("para escribir código escriba las palabras reservadas PARTIR instrucciones FINALIZAR.\n");
+    printf("donde instrucciones pueden ser INICIAR(nomarr,valoresx8) METER(nomarr, posición) SACAR(nomarr, posición),\n");
+    printf("MIRAR(nomarr), DATO(nomarr,posición).\n");
 	yyparse(); //funcion propio de bison que ejecuta el analizador sintactico
 	printf("La ejecucion termino de manera correcta ");
 	return 0;
