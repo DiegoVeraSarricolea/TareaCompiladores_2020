@@ -233,7 +233,7 @@ void datoDeArreglo(char id[50],int x)
 int main(int argc,char **argv) //Programa Principal
 {
     printf("para escribir código escriba las palabras reservadas PARTIR instrucciones FINALIZAR.\n");
-    printf("donde instrucciones pueden ser INICIAR(nomarr,valoresx8) METER(nomarr, posición) SACAR(nomarr, posición),\n");
+    printf("donde instrucciones pueden ser INICIAR(nomarr,valoresx8) METER(nomarr, entero, posición) SACAR(nomarr, posición),\n");
     printf("MIRAR(nomarr), DATO(nomarr,posición).\n");
 	yyparse(); //funcion propio de bison que ejecuta el analizador sintactico
 	printf("La ejecucion termino de manera correcta ");

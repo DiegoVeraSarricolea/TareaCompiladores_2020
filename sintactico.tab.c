@@ -123,17 +123,17 @@
  //Declaracion de metodos 
   void yyerror(char *s);
   int buscaPosicionArreglo(char id[50]);
-  void creaArreglo(char id[30],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8);
-  void meterEnArreglo(char id[30],int x,int y);
-  void sacarDeArreglo(char id[30],int y);
-  void mirarArreglo(char id[30]);
-  void datoDeArreglo(char id[30],int x);
-  void identificadorArreglo(char id[30]);
+  void creaArreglo(char id[50],int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8);
+  void meterEnArreglo(char id[50],int x,int y);
+  void sacarDeArreglo(char id[50],int y);
+  void mirarArreglo(char id[50]);
+  void datoDeArreglo(char id[50],int x);
+  void identificadorArreglo(char id[50]);
 
 
 //Declaracion del nodo del buffer de identificadores
 
-char auxiliarArreglo[30];
+char auxiliarArreglo[50];
 
 struct arreglo
 {
@@ -1726,9 +1726,9 @@ void yyerror(char *s)
 	printf("Error sintactico %s \n",s);
 }
 
-void identificadorArreglo(char id[30]){
+void identificadorArreglo(char id[50]){
   int i = 0;
-  while( i < 30 && id[i] != ',' && id[i] !=')' ){
+  while( i < 50 && id[i] != ',' && id[i] !=')' ){
     auxiliarArreglo[i] = id[i];
     i++;
   }
@@ -1784,7 +1784,7 @@ void meterEnArreglo(char id[50], int x, int y)
     printf("Se ha metido con exito\n");
 }
 
-void mirarArreglo(char id[30])
+void mirarArreglo(char id[50])
 {
     int pos = buscaPosicionArreglo(id);
     //printf("el arreglo %s contiente los siguientes elementos: ", buffer[pos].nombre);
@@ -1796,7 +1796,7 @@ void mirarArreglo(char id[30])
 }
 
 
-void sacarDeArreglo(char id[30],int y)
+void sacarDeArreglo(char id[50],int y)
 {
   int pos = buscaPosicionArreglo(id);
 
@@ -1811,10 +1811,10 @@ void sacarDeArreglo(char id[30],int y)
 }
 
 
-void datoDeArreglo(char id[30],int x)
+void datoDeArreglo(char id[50],int x)
 {
   int pos = buscaPosicionArreglo(id);
-  printf("%i ", buffer[pos].valor[x-1]);
+  printf("%i \n", buffer[pos].valor[x-1]);
 
 }
 
@@ -1823,7 +1823,7 @@ void datoDeArreglo(char id[30],int x)
 int main(int argc,char **argv) //Programa Principal
 {
     printf("para escribir código escriba las palabras reservadas PARTIR instrucciones FINALIZAR.\n");
-    printf("donde instrucciones pueden ser INICIAR(nomarr,valoresx8) METER(nomarr, posición) SACAR(nomarr, posición),\n");
+    printf("donde instrucciones pueden ser INICIAR(nomarr,valoresx8) METER(nomarr, entero, posición) SACAR(nomarr, posición),\n");
     printf("MIRAR(nomarr), DATO(nomarr,posición).\n");
 	yyparse(); //funcion propio de bison que ejecuta el analizador sintactico
 	printf("La ejecucion termino de manera correcta ");
