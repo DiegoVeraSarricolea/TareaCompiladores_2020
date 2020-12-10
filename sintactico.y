@@ -224,7 +224,7 @@ void sacarDeArreglo(char id[30],int y)
 void datoDeArreglo(char id[30],int x)
 {
   int pos = buscaPosicionArreglo(id);
-  printf("%i ", buffer[pos].valor[x-1]);
+  printf("%i \n", buffer[pos].valor[x-1]);
 
 }
 
